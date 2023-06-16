@@ -24,6 +24,7 @@ public class Territory : MonoBehaviour
             {
                 renderer.material.color = owner.color.color;
             }
+            ownershipUpdateCallback?.Invoke(this);
         }
     }
 
@@ -54,6 +55,7 @@ public class Territory : MonoBehaviour
     public delegate void TerritoryCallback(Territory territory);
     public TerritoryCallback territorySelectionCallback;
     public TerritoryCallback troopsUpdateCallback;
+    public TerritoryCallback ownershipUpdateCallback;
 
     public delegate void TroopsPopUpCallback(Territory territory, int change);
     public TroopsPopUpCallback troopsPopUpCallback;

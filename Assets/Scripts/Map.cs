@@ -6,6 +6,7 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     public List<Territory> territories;
+    public List<Continent> continents;
 
     void Awake()
     {
@@ -15,5 +16,6 @@ public class Map : MonoBehaviour
     public void GetTerritories()
     {
         territories = new List<Territory>(GetComponentsInChildren<Territory>());
+        continents = new List<Continent>(GetComponentsInChildren<Continent>());
     }
 }

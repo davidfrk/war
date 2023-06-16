@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPlaying = player;
         TurnState = TurnState.Deploy;
-        PlayerPlaying.ReceiveTroops(BeginTurnTroops());
+        PlayerPlaying.ReceiveTroops(BeginTurnTroops(PlayerPlaying));
         turnStartTime = Time.time;
         PlayerPlaying.BeginTurn();
 
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         BeginPlayerTurn(players[nextIndex]);
     }
 
-    int BeginTurnTroops()
+    int BeginTurnTroops(Player player)
     {
         //Territorial bonus
         int troopsAmount = Mathf.Max(3, PlayerPlaying.territoryCount / 3);
@@ -123,6 +123,15 @@ public class GameManager : MonoBehaviour
         //Bonus for playing later
         if (turn == 1)
             troopsAmount += playerTurnCount;
+
+        //Continental Bonuses
+        foreach (Continent continent in map.continents)
+        {
+            if (continent.Owner == player)
+            {
+                troopsAmount += continent.bonus;
+            }
+        }
 
         return troopsAmount;
     }
